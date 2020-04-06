@@ -4,10 +4,11 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     price: DataTypes.INTEGER,
     ingredients: DataTypes.STRING,
-    tag: DataTypes.STRING
+    tag: DataTypes.STRING,
+    UserId: DataTypes.INTEGER
   }, {});
-  Food.associate = function(models) {
-    // associations can be defined here
+  Food.associate = function (models) {
+    Food.belongsTo(models.User);
   };
   return Food;
 };
