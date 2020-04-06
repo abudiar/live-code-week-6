@@ -13,7 +13,7 @@ class Err extends Error {
         else {
             console.log('rip')
             if (err.name == 'SequelizeValidationError')
-                res.status(401).json({ name: err.name, message: 'Validations failed' });
+                res.status(422).json({ name: err.name, message: 'Validations failed' });
             else
                 res.status(500).json({ name: 'InternalServerError' });
         }

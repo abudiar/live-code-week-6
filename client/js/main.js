@@ -29,6 +29,7 @@ $(document).ready(function () {
             })
             .fail(function (result) {
                 console.log(result);
+                toastr.error(result.responseJSON.message, result.responseJSON.name)
             });
     })
 
@@ -50,6 +51,7 @@ $(document).ready(function () {
             })
             .fail(function (result) {
                 console.log(result);
+                toastr.error(result.responseJSON.message, result.responseJSON.name)
             });
     })
 });
@@ -82,11 +84,11 @@ function showListFoods() {
                     <div class="d-flex justify-content-between mb-0">
                       <div class="col-9">
                         <h5 class="font-weight-bold">${result[i].title}</h5>
-                        <p>${result[i].price}</p>
+                        <p>Rp.${result[i].price}</p>
                       </div>
                       <div class="col-3 d-flex align-items-baseline">
                         <i class="fas fa-tag text-grey mr-2"></i>
-                        <p class="text-grey">ayam</p>
+                        <p class="text-grey">${result[i].tag}</p>
                         <button class="fas fa-trash text-danger ml-auto cursor-pointer"  value="${result[i].id}"></button>
                       </div>
                     </div>
@@ -104,40 +106,17 @@ function showListFoods() {
                     headers: { access_token: localStorage.getItem('access_token') }
                 })
                     .done(function (result) {
-                        console.log(result)
-                        for (let i in result) {
-                            $('#list-food').append(`
-                            <div class="card">
-                              <div class="card-body pb-0">
-                                <div class="d-flex justify-content-between mb-0">
-                                  <div class="col-9">
-                                    <h5 class="font-weight-bold">${result[i].title}</h5>
-                                    <p>${result[i].price}</p>
-                                  </div>
-                                  <div class="col-3 d-flex align-items-baseline">
-                                    <i class="fas fa-tag text-grey mr-2"></i>
-                                    <p class="text-grey">ayam</p>
-                                    <button class="fas fa-trash text-danger ml-auto cursor-pointer"  value="${result[i].id}"></button>
-                                  </div>
-                                </div>
-                                <div class="card-body border-bottom">
-                                  ${result[i].ingredients}
-                                </div>
-                    
-                              </div>
-                            </div>`);
-                        }
-                        $('.fas.fa-trash').click(function () {
-
-                        })
+                        showListFoods();
                     })
                     .fail(function (result) {
                         console.log(result);
+                        toastr.error(result.responseJSON.message, result.responseJSON.name)
                     });
             })
         })
         .fail(function (result) {
             console.log(result);
+            toastr.error(result.responseJSON.message, result.responseJSON.name)
         });
 
 

@@ -16,6 +16,13 @@ class FoodController {
                 status: 400,
                 message: 'Title, price, ingredients and tag are required'
             })
+        if (!Number(price)) {
+            throw new Err({
+                name: 'ValidationError',
+                status: 400,
+                message: 'Price must be a number'
+            })
+        }
         Food.findOne({ where: { title, price, ingredients, tag } })
             .then((food) => {
                 if (!food) {
@@ -51,7 +58,7 @@ class FoodController {
         } = req;
         Food.findOne({ where: { id, UserId } })
             .then((food) => {
-                food.delete();
+                food.destroy();
                 res.status(200).json({ message: 'Successfully deleted food from your menu' })
             })
             .catch(next);
