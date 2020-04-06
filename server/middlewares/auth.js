@@ -7,7 +7,7 @@ const { Food } = require('../models');
 class Auth {
     static authorize(req, res, next) {
         const { access_token } = req.headers;
-        req.jwt.verify(access_token, jwtSecret)
+        // console.log('AT', access_token, jwtSecret)
         jwt.verify(access_token, jwtSecret, function (err, decoded) {
             if (err) throw new Err({
                 name: 'InvalidAccessToken',
@@ -16,6 +16,7 @@ class Auth {
             })
             else {
                 req['decoded'] = decoded;
+                console.log(decoded)
                 next()
             }
         });

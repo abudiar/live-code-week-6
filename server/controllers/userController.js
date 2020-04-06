@@ -46,7 +46,7 @@ class UserController {
             .then((result) => {
                 if (result) {
                     let access_token = jwt.sign({
-                        id: userData.id,
+                        UserId: userData.id,
                         email: userData.email
                     }, jwtSecret);
                     res.status(200).json({ access_token });
